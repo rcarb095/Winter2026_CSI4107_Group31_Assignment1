@@ -1,7 +1,8 @@
 import os
 import re
 import json
-from typing import Iterable, List, Optional, Set, Iterator, Tuple
+from collections import defaultdict
+from typing import Iterable, List, Optional, Set, Iterator, Tuple, Dict
 
 from nltk.stem import PorterStemmer  # type: ignore
 from nltk.tokenize import word_tokenize  # type: ignore
@@ -151,9 +152,37 @@ def iter_scifact_tokens(
         )
         yield doc_id, stem_tokens(tokens)
 
+
+
+def build_inverted_index(
+    token_stream: Iterable[Tuple[str, List[str]]]
+) -> Dict[str, Dict[str, int]]:
+    inverted_index: Dict[str, Dict[str, int]] = defaultdict(dict)
+
+    for doc_id, tokens in token_stream:
+        term_freq: Dict[str, int] = defaultdict(int)
+
+        # Count term frequencies in this document
+        for token in tokens:
+            term_freq[token] += 1
+
+        # Update inverted index
+        for term, freq in term_freq.items():
+            inverted_index[term][doc_id] = freq
+
+    return inverted_index
+
+
+
 #main function for testing purposes
 if __name__ == "__main__":
+    print("STEP 1: Preprocessing (sample output)")
     for i, (doc_id, tokens) in enumerate(iter_scifact_tokens()):
         print(f"{doc_id}\t{tokens}")
         if i >= 2:
             break
+
+    print("\nSTEP 2: Inverted Index (sample output)")
+    index = build_inverted_index(iter_scifact_tokens())
+    for term in list(index.keys())[:5]:
+        print(term, index[term])
