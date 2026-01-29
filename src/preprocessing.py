@@ -15,7 +15,7 @@ DEFAULT_STOPWORDS: Set[str] = {
 }
 
 
-# Cache stopwords so we only have to read the file once.
+# Cache stopwords so we only have to read the file once
 _STOPWORDS_CACHE: Optional[Set[str]] = None
 _DEFAULT_STOPWORDS_PATH = os.path.join("resources", "List_of_Stopwords.txt")
 _TAG_RE = re.compile(r"<[^>]+>")
