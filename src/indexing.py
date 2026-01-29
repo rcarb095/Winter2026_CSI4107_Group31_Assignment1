@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Dict, Iterable, List, Tuple
 
-from step1_preprocessing import iter_scifact_tokens
+from preprocessing import iter_scifact_tokens
 
 
 def build_inverted_index(
