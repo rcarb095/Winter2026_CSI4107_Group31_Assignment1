@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple
 
 from preprocessing import tokenize, stem_tokens, iter_scifact_tokens
 from indexing import build_inverted_index
+
 def compute_idf(inverted_index: Dict[str, Dict[str, int]], N: int) -> Dict[str, float]:
     #idf(t) = log(N / df(t))
     idf: Dict[str, float] = {}
@@ -97,6 +98,7 @@ if __name__ == "__main__":
     print("\nSTEP 3: Top 3 results")
     for doc_id, score in results[:3]:
         print(doc_id, f"{score:.4f}")
+
 
 
 
