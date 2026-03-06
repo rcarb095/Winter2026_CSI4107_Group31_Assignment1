@@ -153,6 +153,7 @@ def iter_scifact_tokens(
 
 #main function for testing purposes
 if __name__ == "__main__":
+    from indexing import build_inverted_index  
     for i, (doc_id, tokens) in enumerate(iter_scifact_tokens()):
         print(f"{doc_id}\t{tokens}")
         if i >= 2:

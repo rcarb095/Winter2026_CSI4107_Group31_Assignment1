@@ -1,15 +1,19 @@
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR.parent / "data" / "scifact"
+RESULTS_DIR = BASE_DIR / "Results"
 
 # Load corpus and queries
-with open("../data/scifact/corpus.jsonl") as f:
+with (DATA_DIR / "corpus.jsonl").open("r", encoding="utf-8") as f:
     corpus = [json.loads(line) for line in f]
 docs = [doc["text"] for doc in corpus]
 doc_ids = [doc["_id"] for doc in corpus]
 
-with open("../data/scifact/queries.jsonl") as f:
+with (DATA_DIR / "queries.jsonl").open("r", encoding="utf-8") as f:
     queries = [json.loads(line) for line in f]
 
 # Vectorize
@@ -28,8 +32,8 @@ for q in queries:
         Results.append(f"{q_id} Q0 {doc_ids[idx]} {rank} {sim_scores[idx]:.4f} baseline")
 
 # Save results
-os.makedirs("Results", exist_ok=True)
-with open("Results/baseline_results.txt", "w") as f:
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+with (RESULTS_DIR / "baseline_results.txt").open("w", encoding="utf-8") as f:
     f.write("\n".join(Results))
 
 print("Baseline results saved to Results/baseline_results.txt")
