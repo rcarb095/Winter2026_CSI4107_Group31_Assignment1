@@ -1,8 +1,10 @@
 Rebecca Giles (300288250)
 Rafael Carballo (300283390)
+Qingcheng Meng (300221769)
 Implemented baseline retrieval plus two neural re-ranking methods.
 Model 1 (Sentence-BERT MiniLM / all-MiniLM-L6-v2) was implemented by Rebecca.
 Model 2 (Sentence-Transformer MPNet / all-mpnet-base-v2) was implemented by Rafael.
+Produce a file called Results with the results for all the test queries was implemented by Qingcheng.
 
 HOW TO RUN
 Run all commands from the `Assignment2` directory.
